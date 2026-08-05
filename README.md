@@ -47,6 +47,7 @@ The dashboard is split into four sections:
 ### Assumptions made
 
 - **All 5 trades are treated as happening "today."** The trade data has no timestamps, so "current day's loss" is calculated across the full trade list rather than a filtered subset. In a real system this would filter by trade date.
+- **Peak balance is tracked as a running high-water-mark, not just the starting balance.** This assumes the trades array is in chronological order — drawdown is measured from that peak, since that's the standard definition, rather than from the starting balance.
 - **Trades with `amt === 0`** (if any existed) are excluded from both winning and losing trade counts — they're treated as scratch trades, not wins or losses. They still count toward the total trade count used as the win-rate denominator, so a scratch trade slightly lowers the win rate rather than being fully neutral.
 - **Risk status thresholds** are my own choice, since the assignment leaves this open: 50% or less of either limit consumed → Safe; over 50% up to 80% → Approaching Limit; over 80% → At Risk. The status reflects whichever of the two limits (drawdown or daily loss) is closer to being breached, since that's the one that actually determines whether the trader can keep trading.
 
