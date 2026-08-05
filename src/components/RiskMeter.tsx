@@ -18,10 +18,10 @@ const RiskMeter = ({ label, percentConsumed, remaining }: RiskMeterProps) => {
   return (
     <div>
       <div className="flex items-baseline justify-between text-sm">
-        <span className="font-medium text-slate-700">{label}</span>
+        <span className="font-medium text-slate-300">{label}</span>
         <span className="text-slate-500">{percentConsumed.toFixed(1)}% used</span>
       </div>
-      <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-slate-200">
+      <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-slate-800">
         <div className={`h-full rounded-full ${barColor(clamped)}`} style={{ width: `${clamped}%` }} />
       </div>
       <p className="mt-1 text-xs text-slate-500">{formatCurrency(remaining)} remaining</p>

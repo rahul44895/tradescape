@@ -18,10 +18,10 @@ const Dashboard = ({ trades, data }: DashboardProps) => {
   const winLossRatio = hasWinLossPair ? data.avg_win / Math.abs(data.avg_loss) : null;
 
   return (
-    <div className="min-h-screen bg-slate-50 p-6">
+    <div className="p-6">
       <div className="mx-auto max-w-6xl space-y-6">
         <header>
-          <h1 className="text-xl font-semibold text-slate-900">TradeScape</h1>
+          <h1 className="text-xl font-semibold text-white">Dashboard</h1>
         </header>
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-5">
@@ -34,16 +34,16 @@ const Dashboard = ({ trades, data }: DashboardProps) => {
                 tone={isProfitable ? "positive" : "negative"}
               />
               <StatCard label="Win Rate" value={`${data.win_rate.toFixed(1)}%`} />
-              <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
-                <p className="text-sm font-medium text-slate-500">Trade Count</p>
+              <div className="rounded-lg border border-slate-800 bg-slate-900 p-4">
+                <p className="text-sm font-medium text-slate-400">Trade Count</p>
                 <dl className="mt-1 space-y-1 text-sm">
                   <div className="flex items-baseline justify-between">
-                    <dt className="text-slate-600">Winning Trades</dt>
-                    <dd className="font-semibold text-emerald-600">{data.winning_trades.length}</dd>
+                    <dt className="text-slate-400">Winning Trades</dt>
+                    <dd className="font-semibold text-emerald-400">{data.winning_trades.length}</dd>
                   </div>
                   <div className="flex items-baseline justify-between">
-                    <dt className="text-slate-600">Losing Trades</dt>
-                    <dd className="font-semibold text-rose-600">{data.losing_trades.length}</dd>
+                    <dt className="text-slate-400">Losing Trades</dt>
+                    <dd className="font-semibold text-rose-400">{data.losing_trades.length}</dd>
                   </div>
                 </dl>
               </div>
@@ -62,28 +62,28 @@ const Dashboard = ({ trades, data }: DashboardProps) => {
             </section>
 
             <section>
-              <h2 className="mb-2 text-sm font-medium text-slate-500">Trades</h2>
+              <h2 className="mb-2 text-sm font-medium text-slate-400">Trades</h2>
               <TradesTable trades={trades} />
             </section>
           </div>
 
           <div className="space-y-6 lg:col-span-2">
-            <section className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
-              <h2 className="mb-3 text-sm font-medium text-slate-500">Trade Quality</h2>
+            <section className="rounded-lg border border-slate-800 bg-slate-900 p-4">
+              <h2 className="mb-3 text-sm font-medium text-slate-400">Trade Quality</h2>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <StatCard label="Average Win" value={formatCurrency(data.avg_win)} tone="positive" />
                 <StatCard label="Average Loss" value={formatCurrency(data.avg_loss)} tone="negative" />
               </div>
-              <p className="mt-3 text-sm text-slate-600">
+              <p className="mt-3 text-sm text-slate-400">
                 {winLossRatio !== null
                   ? `Your average win is ${winLossRatio.toFixed(1)}x your average loss.`
                   : "Not enough win/loss data yet to compare."}
               </p>
             </section>
 
-            <section className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+            <section className="rounded-lg border border-slate-800 bg-slate-900 p-4">
               <div className="mb-3 flex items-center justify-between">
-                <h2 className="text-sm font-medium text-slate-500">Risk Status</h2>
+                <h2 className="text-sm font-medium text-slate-400">Risk Status</h2>
                 <RiskBadge indicator={data.indicator} />
               </div>
               <div className="space-y-4">

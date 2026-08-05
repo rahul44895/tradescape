@@ -2,7 +2,7 @@
 
 A dashboard that lets a trader see, at a glance, how they're performing and whether they're at risk of violating their account rules.
 
-**Live demo:** _[add deployed URL here]_
+**Live demo:** https://tradescape-fz0n.onrender.com
 **Repo:** https://github.com/rahul44895/tradescape
 
 ---
