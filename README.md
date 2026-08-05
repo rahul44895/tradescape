@@ -39,8 +39,8 @@ npm run preview
 
 The dashboard is split into four sections:
 
-1. **Account Summary** — current balance, total P&L, win rate, and trade count, all derived from the trade data (see [Calculations](#calculations) below).
-2. **Trade Quality** — largest winning/losing trade, average win, average loss, and a win/loss ratio insight (this is my added feature — see [Additional Feature](#additional-feature) below).
+1. **Account Summary** — current balance, total P&L, win rate, and trade count, all derived from the trade data.
+2. **Trade Quality** — largest winning/losing trade, average win, average loss, and a win/loss ratio insight (this is my added feature).
 3. **Risk Status** — a Safe / Approaching Limit / At Risk indicator, backed by two progress bars showing how much of the max drawdown and daily loss limit have been consumed, and how much room remains in each.
 4. **Trades** — the raw trade list for reference.
 
