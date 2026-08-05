@@ -54,6 +54,7 @@ const calc = (
   const avg_loss = losing_trades.length ? current_day_loss / losing_trades.length : 0;
 
   return {
+    starting_balance: account.starting_balance,
     current_balance,
     total_amt,
     winning_trades,

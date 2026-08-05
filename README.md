@@ -11,7 +11,7 @@ A dashboard that lets a trader see, at a glance, how they're performing and whet
 
 - React (Vite)
 - Tailwind CSS
-- No backend, no database, no auth — all data is static mock data (`src/data.js`), per the assignment's scope.
+- No backend, no database, no auth — all data is static mock data (`src/config/data.ts`), per the assignment's scope.
 
 ---
 
@@ -47,8 +47,8 @@ The dashboard is split into four sections:
 ### Assumptions made
 
 - **All 5 trades are treated as happening "today."** The trade data has no timestamps, so "current day's loss" is calculated across the full trade list rather than a filtered subset. In a real system this would filter by trade date.
-- **Trades with `amt === 0`** (if any existed) are excluded from both winning and losing trade counts, and from win rate — they're treated as scratch trades, not wins or losses.
-- **Risk status thresholds** are my own choice, since the assignment leaves this open: under 50% of either limit consumed → Safe; 50–80% → Approaching Limit; over 80% → At Risk. The status reflects whichever of the two limits (drawdown or daily loss) is closer to being breached, since that's the one that actually determines whether the trader can keep trading.
+- **Trades with `amt === 0`** (if any existed) are excluded from both winning and losing trade counts — they're treated as scratch trades, not wins or losses. They still count toward the total trade count used as the win-rate denominator, so a scratch trade slightly lowers the win rate rather than being fully neutral.
+- **Risk status thresholds** are my own choice, since the assignment leaves this open: 50% or less of either limit consumed → Safe; over 50% up to 80% → Approaching Limit; over 80% → At Risk. The status reflects whichever of the two limits (drawdown or daily loss) is closer to being breached, since that's the one that actually determines whether the trader can keep trading.
 
 ---
 
@@ -78,3 +78,5 @@ P&L tells a trader how they're doing; remaining drawdown tells them how much roo
 - Add a small equity curve chart once there's enough trade history to make it meaningful.
 
 - Make the Safe/Approaching/At Risk thresholds configurable rather than hardcoded, since different accounts may have different risk tolerances.
+
+![Tablet View](<mobile_view.png>)

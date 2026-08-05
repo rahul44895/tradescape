@@ -3,6 +3,7 @@ import { formatCurrency } from "../utils/format.utils";
 type RiskMeterProps = {
   label: string;
   percentConsumed: number;
+  used: number;
   remaining: number;
 };
 
@@ -12,19 +13,22 @@ const barColor = (pct: number) => {
   return "bg-emerald-500";
 };
 
-const RiskMeter = ({ label, percentConsumed, remaining }: RiskMeterProps) => {
+const RiskMeter = ({ label, percentConsumed, used, remaining }: RiskMeterProps) => {
   const clamped = Math.min(100, Math.max(0, percentConsumed));
 
   return (
     <div>
-      <div className="flex items-baseline justify-between text-sm">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-2 text-sm">
         <span className="font-medium text-slate-300">{label}</span>
         <span className="text-slate-500">{percentConsumed.toFixed(1)}% used</span>
       </div>
       <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-slate-800">
         <div className={`h-full rounded-full ${barColor(clamped)}`} style={{ width: `${clamped}%` }} />
       </div>
-      <p className="mt-1 text-xs text-slate-500">{formatCurrency(remaining)} remaining</p>
+      <div className="mt-1 flex flex-wrap items-baseline justify-between gap-x-2 gap-y-1 text-xs text-slate-500">
+        <span>{formatCurrency(used)} used</span>
+        <span>{formatCurrency(remaining)} remaining</span>
+      </div>
     </div>
   );
 };

@@ -25,8 +25,9 @@ const Dashboard = ({ trades, data }: DashboardProps) => {
         </header>
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-5">
-          <div className="space-y-6 lg:col-span-3">
-            <section className="grid grid-cols-1 gap-4 sm:grid-cols-4">
+          <div className="contents lg:block lg:space-y-6 lg:col-span-3">
+            <section className="order-1 grid grid-cols-1 gap-4 sm:grid-cols-4">
+              <StatCard label="Starting Balance" value={formatCurrency(data.starting_balance)} />
               <StatCard label="Current Balance" value={formatCurrency(data.current_balance)} />
               <StatCard
                 label="Total P&L"
@@ -34,6 +35,18 @@ const Dashboard = ({ trades, data }: DashboardProps) => {
                 tone={isProfitable ? "positive" : "negative"}
               />
               <StatCard label="Win Rate" value={`${data.win_rate.toFixed(1)}%`} />
+              <StatCard
+                label="Largest Winning Trade"
+                value={data.largest_winning_trade ? formatCurrency(data.largest_winning_trade.amt) : "—"}
+                subvalue={data.largest_winning_trade?.name}
+                tone="positive"
+              />
+              <StatCard
+                label="Largest Losing Trade"
+                value={data.largest_losing_trade ? formatCurrency(data.largest_losing_trade.amt) : "—"}
+                subvalue={data.largest_losing_trade?.name}
+                tone="negative"
+              />
               <div className="rounded-lg border border-slate-800 bg-slate-900 p-4">
                 <p className="text-sm font-medium text-slate-400">Trade Count</p>
                 <dl className="mt-1 space-y-1 text-sm">
@@ -47,28 +60,16 @@ const Dashboard = ({ trades, data }: DashboardProps) => {
                   </div>
                 </dl>
               </div>
-              <StatCard
-                label="Largest Winning Trade"
-                value={data.largest_winning_trade ? formatCurrency(data.largest_winning_trade.amt) : "—"}
-                subvalue={data.largest_winning_trade?.name}
-                tone="positive"
-              />
-              <StatCard
-                label="Largest Losing Trade"
-                value={data.largest_losing_trade ? formatCurrency(data.largest_losing_trade.amt) : "—"}
-                subvalue={data.largest_losing_trade?.name}
-                tone="negative"
-              />
             </section>
 
-            <section>
+            <section className="order-4">
               <h2 className="mb-2 text-sm font-medium text-slate-400">Trades</h2>
               <TradesTable trades={trades} />
             </section>
           </div>
 
-          <div className="space-y-6 lg:col-span-2">
-            <section className="rounded-lg border border-slate-800 bg-slate-900 p-4">
+          <div className="contents lg:block lg:space-y-6 lg:col-span-2">
+            <section className="order-2 rounded-lg border border-slate-800 bg-slate-900 p-4">
               <h2 className="mb-3 text-sm font-medium text-slate-400">Trade Quality</h2>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <StatCard label="Average Win" value={formatCurrency(data.avg_win)} tone="positive" />
@@ -81,14 +82,24 @@ const Dashboard = ({ trades, data }: DashboardProps) => {
               </p>
             </section>
 
-            <section className="rounded-lg border border-slate-800 bg-slate-900 p-4">
+            <section className="order-3 rounded-lg border border-slate-800 bg-slate-900 p-4">
               <div className="mb-3 flex items-center justify-between">
                 <h2 className="text-sm font-medium text-slate-400">Risk Status</h2>
                 <RiskBadge indicator={data.indicator} />
               </div>
               <div className="space-y-4">
-                <RiskMeter label="Max Drawdown" percentConsumed={data.drawdown_limit_consumed} remaining={data.remaining_drawdown} />
-                <RiskMeter label="Daily Loss Limit" percentConsumed={data.daily_loss_limit_consumed} remaining={data.remaining_daily_loss_limit} />
+                <RiskMeter
+                  label="Max Drawdown"
+                  percentConsumed={data.drawdown_limit_consumed}
+                  used={data.current_drawdown}
+                  remaining={data.remaining_drawdown}
+                />
+                <RiskMeter
+                  label="Daily Loss Limit"
+                  percentConsumed={data.daily_loss_limit_consumed}
+                  used={Math.abs(data.current_day_loss)}
+                  remaining={data.remaining_daily_loss_limit}
+                />
               </div>
             </section>
           </div>
